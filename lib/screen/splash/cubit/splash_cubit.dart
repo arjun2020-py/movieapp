@@ -9,9 +9,9 @@ part 'splash_state.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit(this.context) : super(SplashInitial()) {
     splash();
-  }
+  } 
   BuildContext context;
-
+ 
   splash() async {
     Future.delayed(Duration(milliseconds: 500), () {
       Navigator.of(context).push(MaterialPageRoute(

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'screen/home/view/screen_home.dart';
 import 'screen/splash/view/splash_screen.dart';
+import 'screen/task_1/lead/screen_lead.dart';
+import 'screen/task_1/login/view/screen_login.dart';
+import 'screen/task_1/splash/screen_splash.dart';
+import 'screen/test/view/screen_leads.dart';
+import 'screen/test/view/screen_post.dart';
+import 'screen/test/view/screen_resource_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ScreenSplah(),
+      home: ScreenSplash(),
     );
   }
 }
