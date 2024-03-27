@@ -5,11 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:movieapp/screen/task_1/lead/model/lead_response_model.dart';
 
 import '../../test/model/api_lead_model.dart';
+import '../constents.dart';
 import '../login/compoents/custom_text.dart';
 import '../login/view/screen_login.dart';
 import '../utils/custom_color.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../utils/localStorage/local_storage.dart';
 
 class ScreenLead extends StatefulWidget {
   const ScreenLead({super.key});
@@ -20,12 +23,9 @@ class ScreenLead extends StatefulWidget {
 
 class _ScreenLeadState extends State<ScreenLead> {
   Future<LeadResponseLeadModel> leadResponseApi() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    var token = pref.getString('token');
-
     final url = 'https://crm-beta-api.vozlead.in/api/v2/lead/lead_list/';
     final response = await http.get(Uri.parse(url), headers: {
-    //  'Content-type': 'application/json',
+      //  'Content-type': 'application/json',
       'authorization': 'token ${token}'
     });
     final responseData = json.decode(response.body);
@@ -51,7 +51,7 @@ class _ScreenLeadState extends State<ScreenLead> {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.97),
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(15),
                 bottomRight: Radius.circular(15))),
@@ -81,7 +81,7 @@ class _ScreenLeadState extends State<ScreenLead> {
           future: leadResponseApi(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasData) {
@@ -104,8 +104,8 @@ class _ScreenLeadState extends State<ScreenLead> {
                             height: 50,
                             child: Card(
                               color: leadListCountColor,
-                              child:
-                                  Center(child: CustomTextWidget(text: '01')),
+                              child: const Center(
+                                  child: CustomTextWidget(text: '01')),
                             ),
                           ),
                           Column(
@@ -114,7 +114,7 @@ class _ScreenLeadState extends State<ScreenLead> {
                             children: [
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   CustomTextWidget(
@@ -126,7 +126,7 @@ class _ScreenLeadState extends State<ScreenLead> {
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   CustomTextWidget(
@@ -137,10 +137,10 @@ class _ScreenLeadState extends State<ScreenLead> {
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  CustomTextWidget(text: 'Created :'),
+                                  const CustomTextWidget(text: 'Created :'),
                                   CustomTextWidget(
                                       text: DateFormat('yyyy-MM-dd')
                                           .format(leadData.createdAt)),
@@ -148,16 +148,16 @@ class _ScreenLeadState extends State<ScreenLead> {
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  CustomTextWidget(text: 'Mobile :'),
+                                  const CustomTextWidget(text: 'Mobile :'),
                                   CustomTextWidget(text: leadData.mobile),
                                 ],
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 40,
                           ),
                           Container(
@@ -166,16 +166,14 @@ class _ScreenLeadState extends State<ScreenLead> {
                                 borderRadius: BorderRadius.circular(20)),
                             width: 56,
                             height: 30,
-                            child: Center(
+                            child: const Center(
                               child: CustomTextWidget(
-                                text: leadData.interest.name,
+                                text: 'interest',
                                 fontSize: 12,
                               ),
                             ),
                           ),
-
-                          // Icon(Icons.phone),
-                          Spacer(),
+                          const Spacer(),
                           const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -209,7 +207,7 @@ class _ScreenLeadState extends State<ScreenLead> {
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return Divider(
+                  return const Divider(
                     color: Colors.transparent,
                   );
                 },

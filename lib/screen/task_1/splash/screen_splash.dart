@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constents.dart';
 import '../lead/screen_lead.dart';
 import '../login/view/screen_login.dart';
+import '../utils/localStorage/local_storage.dart';
 
 class ScreenSplash extends StatefulWidget {
   const ScreenSplash({super.key});
@@ -12,21 +14,11 @@ class ScreenSplash extends StatefulWidget {
 }
 
 class _ScreenSplashState extends State<ScreenSplash> {
+  
   splash() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    var token = pref.getString('token');
+    token = await LocalStorage().getStringData();
 
-    Future.delayed(Duration(milliseconds: 500), () {
-      if (token == null) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ScreenLogin(),
-        ));
-      } else {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ScreenLead(),
-        ));
-      }
-    });
+    Navigator.of(context).push(MaterialPageRoute(builder:(context) => token==null ? ScreenLogin():ScreenLead(), ));
   }
 
   @override

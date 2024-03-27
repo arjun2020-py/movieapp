@@ -83,7 +83,7 @@ class Lead {
     String mobile;
     String email;
     dynamic image;
-    Interest interest;
+   // Interest interest;
    // Location? location;
     bool isAssigned;
     Status status;
@@ -103,7 +103,7 @@ class Lead {
         required this.mobile,
         required this.email,
         required this.image,
-        required this.interest,
+      //  required this.interest,
      //   required this.location,
         required this.isAssigned,
         required this.status,
@@ -124,7 +124,7 @@ class Lead {
         mobile: json["mobile"],
         email: json["email"],
         image: json["image"],
-        interest: interestValues.map[json["interest"]]!,
+       // interest: interestValues.map[json["interest"]]!,
      //   location: locationValues.map[json["location"]]!,
         isAssigned: json["is_assigned"],
         status: statusValues.map[json["status"]]!,
@@ -145,7 +145,7 @@ class Lead {
         "mobile": mobile,
         "email": email,
         "image": image,
-        "interest": interestValues.reverse[interest],
+       // "interest": interestValues.reverse[interest],
      //   "location": locationValues.reverse[location],
         "is_assigned": isAssigned,
         "status": statusValues.reverse[status],

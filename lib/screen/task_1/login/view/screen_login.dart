@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../../../test/model/api_login_response.dart';
+import '../../constents.dart';
 import '../../lead/screen_lead.dart';
+import '../../utils/localStorage/local_storage.dart';
 import '../compoents/custom_text.dart';
 import '../compoents/custom_text_filed.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,37 +13,41 @@ import 'package:http/http.dart' as http;
 
 import '../model/login_response_model.dart';
 
+
 class ScreenLogin extends StatelessWidget {
   ScreenLogin({super.key});
   TextEditingController usernameController = TextEditingController(),
       passwordControler = TextEditingController();
+
   LeadResponseLoginModel? responseLoginModel;
   loginApi(BuildContext context) async {
     print('---------------------p1');
     var body = {
-      "username": usernameController.text,
-      "password": passwordControler.text
+      "username": usernameController.text.trim(),
+      "password": passwordControler.text.trim()
     };
 
     String url = 'https://crm-beta-api.vozlead.in/api/v2/account/login/';
     final response = await http.post(Uri.parse(url), body: body);
+    var responseData = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      var responseData = json.decode(response.body);
       responseLoginModel = LeadResponseLoginModel.fromJson(responseData);
-      final token = responseLoginModel!.data.token;
-      
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString('token', token);
+      token = responseLoginModel!.data.token;
+      final data = LocalStorage();
+      data.setStringData(token!);
+
+  
+
       print('token ${token}');
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const ScreenLead(),
       ));
       //print(response.body);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('some error is occured ')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: responseData['success'] ? Colors.green : Colors.red,
+          content: Text(responseData['message'])));
     }
   }
 
