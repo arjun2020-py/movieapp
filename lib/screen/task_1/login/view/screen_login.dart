@@ -32,6 +32,7 @@ class ScreenLogin extends StatelessWidget {
     var responseData = json.decode(response.body);
 
     if (response.statusCode == 200) {
+      
       responseLoginModel = LeadResponseLoginModel.fromJson(responseData);
       token = responseLoginModel!.data.token;
       final data = LocalStorage();

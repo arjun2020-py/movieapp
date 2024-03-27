@@ -14,11 +14,13 @@ class ScreenSplash extends StatefulWidget {
 }
 
 class _ScreenSplashState extends State<ScreenSplash> {
-  
   splash() async {
     token = await LocalStorage().getStringData();
-
-    Navigator.of(context).push(MaterialPageRoute(builder:(context) => token==null ? ScreenLogin():ScreenLead(), ));
+    Future.delayed(Duration(milliseconds: 500),(){
+       Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => token == null ? ScreenLogin() : ScreenLead(),
+    ));
+    });
   }
 
   @override
